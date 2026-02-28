@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Cambria Math";
-    src: url("https://fonts.gstatic.com/s/cambriamath/v14/9XUjL0kzqYQy8uGQHqZtA.woff2") format("woff2");
+    src: url("fonts/cambria-math/cambria-math.ttf") format('truetype');
 }
 
 body {
