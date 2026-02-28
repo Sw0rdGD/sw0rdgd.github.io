@@ -1,0 +1,25 @@
+.body {
+    text-align: left;
+}
+
+p {
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+code {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: block;
+}
+
+codeHeader {
+    color: lightgray;
+    font-size: 12px;
+}

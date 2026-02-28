@@ -5,6 +5,11 @@ body {
     font-size: 18px;
     font-family: Arial, sans-serif;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;
+    line-height: 1em;
 }
 
 h1 {
@@ -22,6 +27,7 @@ fancy {
     border: 0px;
     height: 120px;
     display: flex;
+    min-width: 300px;
     justify-content: center;
     align-items: center;
     background-color: darkgray;
