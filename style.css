@@ -1,11 +1,17 @@
+@font-face {
+    font-family: "Cambria Math";
+    src: url("https://fonts.gstatic.com/s/cambriamath/v14/9XUjL0kzqYQy8uGQHqZtA.woff2") format("woff2");
+}
+
 body {
     background-color: lightgray;
     text-align: center;
     margin: 0;
+    padding-bottom: 100px;
     font-size: 18px;
     font-family: Arial, sans-serif;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: block;
