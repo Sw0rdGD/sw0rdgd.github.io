@@ -9,3 +9,67 @@
 .tutorialPara {
     margin: 80px 40px;
 }
+
+.consoleOuter {
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: left;
+    border-radius: 5px;
+    background-color: #000000;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+    background: none;
+    padding: 2px 10px;
+    border: hidden;
+    border-radius: 0;
+    white-space: pre-wrap;
+    line-height: 0.5em;
+}
+
+codeHeader {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    line-height: 1.5em;
+}
+
+p {
+    text-align: justify;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+input {
+    background: none;
+    backdrop-filter: none;
+    outline: none;
+    color: #FFFFFF;
+    appearance: none;
+    -webkit-appearance: none;
+    border: solid;
+    border-color: #FFFFFF;
+    width: 100%;
+    height: 2em;
+    font-size: 18px;
+    font-family: "Courier New", Courier, monospace;
+    padding: 0.5em
+}
+
+.consoleInner {
+    height: 50%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.consoleInner::-webkit-scrollbar {
+    display: none;
+}
+
+.consoleInput {
+    align-self:baseline;
+}

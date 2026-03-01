@@ -62,3 +62,18 @@ fancy {
     left: 40px;
     vertical-align: central;
 }
+
+code {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: block;
+}
+
+codeHeader {
+    color: lightgray;
+    font-size: 12px;
+}

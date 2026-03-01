@@ -18,19 +18,9 @@ h2 {
     margin-right: 20%;
 }
 
-code {
-    background-color: black;
-    color: white;
-    border-radius: 5px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: block;
-}
-
-codeHeader {
-    color: lightgray;
-    font-size: 12px;
+comment {
+    color: #70B040;
+    font-style: italic;
 }
 
 tref {

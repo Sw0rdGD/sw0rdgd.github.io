@@ -22,8 +22,15 @@ help()</code>
 This will display a list of the methods, variables, and namespaces in the root namespace.
 
 There is also the "Debug.Dump" command which will display everything in every namespace.
-You can run multiple lines at once by separating them with a semicolon.
-            </p>
+You can run multiple lines at once by separating them with a semicolon.</p>
+        </div>
+        <p style="line-height:0.5em">
+</p>
+        <div class="body">
+            <p>An important thing to note is that you can create comments (or temporarily disable code) by either typing out <tref>//</tref> which will comment out the rest of the line or putting <tref>/*</tref> and <tref>*/</tref> around everything you want to comment out.
+<code><codeHeader>PConsole</codeHeader>
+<comment>// This whole line is a comment</comment>
+<comment>/* This is a comment */</comment> But this isn't</code></p>
         </div>
         <p>
 </p>
@@ -43,8 +50,9 @@ The default file can also be changed using the <tref>default.json</tref> file.</
 <code><codeHeader>PConsole</codeHeader>
 echo($x)</code>
 
-Variables are hard typed. This means you cannot set a variable that is already a string to a have a value that is a number. If you want to change the type of a variable you must use the Var.Override command. The type of a variable is just set when it is defined, to whatever value was given to it.
+Variables are hard typed. This means you cannot set a variable that is already a string to a have a value that is a number. If you want to change the type of a variable you can use a <tref>:=</tref> operator instead of a normal equals sign, or use the <tref>Var.Override</tref> command. The type of a variable is just set when it is defined, to whatever value was given to it.
 There are four types currently available. Strings, booleans, integers, and floats.
+You can also make lists of variables, which can be any type.
 
 <b>Skip this part if you have ever used a programming language before.</b>
 Strings are called strings because they are essentially a string of characters. A character is just anything you can type out on a computer (the alphabet, numbers, punctuation, and even spaces and new lines. You can create a string by typing out a quotation mark <b>"</b> and then any text, closed with another quotation mark. You might notice that you can't put a quotaion mark in a string but there is a solution that we will get to later.
@@ -52,6 +60,19 @@ Strings are called strings because they are essentially a string of characters. 
 Booleans are just true or false. They can be used for things like comparing numbers. The value of <tref>$a == $b</tref> is either true or false. We will come back to comparing values later.
             
 Numbers can either be an integer (or Int32 as they are called internally) or floats (or Singles). Integers can only be whole numbers whereas float can either be whole numbers or decimal numbers. You can convert betweem them as much as you want but converting a decimal number to an integer will cut off the decimal part.
+To make a float, you can just add a decimal point to a number. For example, <tref>3.14</tref> is a float, while <tref>3</tref> is an integer. You can also add an "f" to the end of a number to make it a float, like this: <tref>3f</tref>. This is useful if you want to make sure a number is treated as a float even if it doesn't have a decimal point.
+<code><codeHeader>PConsole</codeHeader>
+type(3);
+type(3f);</code>
+
+You can make a list just by putting square brackets around a list of variables, separated by commas. Each element can have its own type but are hard-typed like normal variables.
+Try creating a variable that is a list of a string, a boolean, an integer, and a float:
+<code><codeHeader>PConsole</codeHeader>
+Var.Declare("x", ["hi", true, 10, 3.14]); <comment>// create the variable</comment>
+echo($x[0]); <comment>// print out the value of the first element</comment>
+type($x[1]); <comment>// print out the type of the second element</comment>
+x[2] = 20; <comment>// change the value of the third element</comment>
+x[3] := "overrided" <comment>// override the value of the fourth element</comment></code>
 </p>
         </div>
         <p>
@@ -73,7 +94,12 @@ sayHello()</code></p>
         <div class="body">
             <p>Methods can also take arguments. Arguments are just variables that are only used in the method. They are defined in the parentheses after the name of the method. To access them in our alias we can use <tref>%0</tref> for the first argument, <tref>%1</tref> for the next, and so on. For example, we can make a method that takes a name as an argument and says hello to that name:
 <code><codeHeader>PConsole</codeHeader>
-alias("sayHello", { echo("Hello " + %0) }); sayHello("Dappermonke")</code></p>
+alias("sayHello", { echo("Hello " + %0) }); sayHello("Dappermonke")</code>
+
+Methods can also return values, which will always be the output of their last line.
+<code><codeHeader>PConsole</codeHeader>
+alias("add", { %0 + %1 });
+echo(add(1, 2));</code></p>
             </div>
 </body>
 </html>
