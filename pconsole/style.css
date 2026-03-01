@@ -27,7 +27,8 @@ code {
     border: hidden;
     border-radius: 0;
     white-space: pre-wrap;
-    line-height: 0.5em;
+    line-height: 1em;
+    
 }
 
 codeHeader {

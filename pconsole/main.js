@@ -8,7 +8,8 @@ ws.onopen = () => {
 ws.onmessage = (event) => {
     console.log("Received message:", event.data);
     consoleStream += event.data + "\n";
-    document.getElementById("consoleCode").textContent = consoleStream;
+    //document.getElementById("consoleCode").textContent = consoleStream;
+    splitText(consoleStream, document.getElementById("consoleCode"));
     scrollview = document.getElementsByClassName("consoleInner")[0];
     scrollview.scrollTop = scrollview.scrollHeight;
 
@@ -38,4 +39,21 @@ function search(ele) {
     if (event.key === "Enter") {
         sendCommandFromInput(ele);
     }
+}
+
+function splitText(text, element) {
+    const lines = text.split("\n");
+
+    element.innerHTML = "";
+
+    lines.forEach(line => {
+        const span = document.createElement("span");
+        span.textContent = line;
+
+        span.style.lineHeight = "1em";
+
+        span.style.display = "block";
+
+        element.appendChild(span);
+    });
 }
