@@ -3,8 +3,17 @@
 }
 
 p {
+    text-align: justify;
     white-space: pre-wrap;
     line-height: 1.5em;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+h2 {
+    text-align: justify;
+    white-space: pre-wrap;
+    line-height: 0.5em;
     margin-left: 20%;
     margin-right: 20%;
 }
@@ -22,4 +31,14 @@ code {
 codeHeader {
     color: lightgray;
     font-size: 12px;
+}
+
+tref {
+    color: #7080A0;
+    font-style: italic;
+}
+
+a {
+    color: #7080A0;
+    text-decoration: none;
 }

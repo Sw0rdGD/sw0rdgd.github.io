@@ -7,23 +7,73 @@
 </head>
     <body>
         <div class="header" style="height:200px;display:block;line-height:10px;padding-top:1px;margin-bottom:50px">
-            <h1><fancy style="font-style:normal">PConsole</fancy></h1>
+            <button class="homeButton" onclick="window.location.href='../../index.html'">Home</button>
+            <a href=".."><h1><fancy style="font-style:normal">PConsole</fancy></h1></a>
             <h3>Tutorial</h3>
         </div>
         <div class="body">
-            <p>This tutorial will cover the basics of using PConsole, a language created by me
-for manipulating variables, performing calculations, and more.
-It is (hopefully) designed to be simple and easy to use.
-            
+            <p>This tutorial will cover the basics of using PConsole, a language created by me for manipulating variables, performing calculations, and more. It is (hopefully) designed to be simple and easy to use.
+
+It can either be written using the console or in a <tref>.cfg</tref> file. The console is useful for testing out code and running small snippets, while <tref>.cfg</tref> files are better for writing larger blocks of code and saving them for later use. You can run a <tref>.cfg</tref> file by either specifying the command in the <tref>default.json</tref> file or by running <tref>PConsole.exe</tref> in a terminal with the argument <tref>-file "path1/path2/path3/file.cfg"</tref>.
+
 To start, try running the help command:
 <code><codeHeader>PConsole</codeHeader>
 help()</code>
-This will display a list of the methods, variables, and namespaces
-in the root namespace</p>
-        </div>
-        <div class="body">
-            <p>
+This will display a list of the methods, variables, and namespaces in the root namespace.
+
+There is also the "Debug.Dump" command which will display everything in every namespace.
+You can run multiple lines at once by separating them with a semicolon.
             </p>
         </div>
-    </body>
+        <p>
+</p>
+        <div class="body">
+            <h2>Variables</h2>
+            <p>Let's then try creating a variable. To create a variable, you can use the methods in the "Var" namespace. For example, to create a variable named "x" with the value 5, you can use the following command:
+<code><codeHeader>PConsole</codeHeader>
+Var.Declare("x", 5)</code>
+You can change the value of an existing variable like this:
+<code><codeHeader>PConsole</codeHeader>
+x = 10</code>
+You are only allowed to declare variables in the root namespace, but variables can exist in other namespaces when set in the default environment. The default environment or "Base Space" is set in the <tref>BaseSpace.json</tref> file.
+The default file can also be changed using the <tref>default.json</tref> file.</p>
+        </div>
+        <div class="body">
+            <p>Now that we have a variable, we can access its value by putting a dollar sign in front of its name. We can print things to the console using the echo command:
+<code><codeHeader>PConsole</codeHeader>
+echo($x)</code>
+
+Variables are hard typed. This means you cannot set a variable that is already a string to a have a value that is a number. If you want to change the type of a variable you must use the Var.Override command. The type of a variable is just set when it is defined, to whatever value was given to it.
+There are four types currently available. Strings, booleans, integers, and floats.
+
+<b>Skip this part if you have ever used a programming language before.</b>
+Strings are called strings because they are essentially a string of characters. A character is just anything you can type out on a computer (the alphabet, numbers, punctuation, and even spaces and new lines. You can create a string by typing out a quotation mark <b>"</b> and then any text, closed with another quotation mark. You might notice that you can't put a quotaion mark in a string but there is a solution that we will get to later.
+
+Booleans are just true or false. They can be used for things like comparing numbers. The value of <tref>$a == $b</tref> is either true or false. We will come back to comparing values later.
+            
+Numbers can either be an integer (or Int32 as they are called internally) or floats (or Singles). Integers can only be whole numbers whereas float can either be whole numbers or decimal numbers. You can convert betweem them as much as you want but converting a decimal number to an integer will cut off the decimal part.
+</p>
+        </div>
+        <p>
+</p>
+        <div class="body">
+            <h2>Methods</h2>
+            <p>Methods are just a way of simplifying code. Instead of writing the same code over and over, you can make it a method so you only need to write out the name of the method instead of the whole block.
+You can create your own methods with the "alias" command:
+<code><codeHeader>PConsole</codeHeader>
+alias("sayHello", { echo("Hello!") }); sayHello()</code>
+If you write your code in a <tref>.cfg</tref> file instead, you can put new-lines between lines of code:
+<code><codeHeader>PConsole</codeHeader>
+alias("sayHello",
+    {
+        echo("Hello!")
+    });
+sayHello()</code></p>
+        </div>
+        <div class="body">
+            <p>Methods can also take arguments. Arguments are just variables that are only used in the method. They are defined in the parentheses after the name of the method. To access them in our alias we can use <tref>%0</tref> for the first argument, <tref>%1</tref> for the next, and so on. For example, we can make a method that takes a name as an argument and says hello to that name:
+<code><codeHeader>PConsole</codeHeader>
+alias("sayHello", { echo("Hello " + %0) }); sayHello("Dappermonke")</code></p>
+            </div>
+</body>
 </html>
