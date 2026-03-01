@@ -1,5 +1,7 @@
 const ws = new WebSocket("wss://pconsole-cli-backend.fly.dev/ws");
 let consoleStream = "";
+let prevCommands = [];
+let prevCommandPointer = 0;
 
 ws.onopen = () => {
     console.log("WebSocket connection established");
@@ -13,7 +15,7 @@ ws.onmessage = (event) => {
     scrollview = document.getElementsByClassName("consoleInner")[0];
     scrollview.scrollTop = scrollview.scrollHeight;
 
-    document.getElementById("consoleInput").value = "";
+    
 }
 
 ws.onclose = () => {
@@ -22,6 +24,7 @@ ws.onclose = () => {
 
 function sendCommand(command) {
     ws.send(command);
+    prevCommands.push(command);
 }
 
 function sendCommandFromElementID(elementID) {
@@ -36,9 +39,43 @@ function sendCommandFromInput(ele) {
 }
 
 function search(ele) {
-    if (event.key === "Enter") {
-        sendCommandFromInput(ele);
+    if (ele.id == "consoleInput") {
+        switch (event.code) {
+            case "Enter":
+                sendCommandFromInput(ele);
+                document.getElementById("consoleInput").value = "";
+                break;
+            case "ArrowUp":
+                event.preventDefault();
+                switchCommandUp();
+                break;
+            case "ArrowDown":
+                event.preventDefault();
+                switchCommandDown();
+                break;
+        }
+        
     }
+}
+
+function switchCommandDown() {
+    if (prevCommands.length === 0) return;
+    prevCommandPointer++;
+    if (prevCommandPointer === prevCommands.length) prevCommandPointer = 0;
+
+    document.getElementById("consoleInput").value = prevCommands[prevCommandPointer];
+}
+
+function switchCommandUp() {
+    if (prevCommands.length === 0) return;
+    prevCommandPointer--;
+    if (prevCommandPointer < 0) prevCommandPointer = prevCommands.length - 1;
+
+    document.getElementById("consoleInput").value = prevCommands[prevCommandPointer];
+}
+
+function resetSwitchCommand() {
+    prevCommandPointer = 0;
 }
 
 function splitText(text, element) {
