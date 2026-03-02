@@ -77,3 +77,8 @@ codeHeader {
     color: lightgray;
     font-size: 12px;
 }
+
+a {
+    color: LinkText;
+    text-decoration: underline;
+}
