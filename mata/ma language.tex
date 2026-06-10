@@ -1,0 +1,412 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{wasysym}
+\usepackage[utf8]{inputenc}
+\usepackage{transparent-nometadata, tipa}%fontspec}
+\usepackage[legalpaper, portrait, margin=5em, top=100pt]{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[none]{hyphenat}
+\usepackage{tabularx}
+\usepackage{ctable}
+\usepackage{array}
+\usepackage{longtable, needspace}
+%\usepackage{pgffor}
+\usepackage{multido, etoolbox}
+\usepackage{xparse, xstring}
+\usepackage{cancel}
+\usepackage{expl3}
+%\usepackage{unicode-math}
+%\newfontfamily\ipafont{Times New Roman}
+\newcommand{\ipafont}[1]{\textipa{#1}}
+\newcommand{\tab}{\hspace{4em}}
+\newcommand{\myname}{D\hat{\jmath}_\prime mz}
+
+%\Umathchardef\xnot="3 \symoperators "0338
+%\AtBeginDocument{
+%  \renewcommand\not[1]{#1\mathrel{\mkern1mu}\xnot}
+%  \renewcommand{\notin}{\not\in}
+%  \renewcommand{\notni}{\not\ni}
+%}
+
+\ExplSyntaxOn
+\cs_new:Npn \retokenize #1 #2 {
+  \tl_set_rescan:Nnn #1 {} {#2}
+}
+\ExplSyntaxOff
+\NewDocumentCommand{\arraylen}{m}{%
+  \setcounter{arraylength}{0}%
+  \@for\item:=#1\do{%
+    \stepcounter{arraylength}%
+  }%
+  \thearraylength
+}
+
+\titleformat{\section}{\fontsize{24pt}{18pt}\selectfont\bfseries}{\thesection}{1em}{}
+
+\renewcommand{\arraystretch}{1.5}
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{?}{!{\vrule width 3pt}}
+
+\newcommand{\tbs}{\textbackslash}
+
+\newcommand{\mataHello}{{\tilde{E}\mkern-10mu\raise1pt\hbox{$/\mkern-8mu/$}}\mkern2mu\hat{y}}
+
+\NewDocumentCommand{\getcolcount}{ m O{ampcount}}{%
+	\typeout{received: #1}
+	\begingroup
+	\catcode`\&=12
+	\def\tmpstring{#1}%
+	\scantokens\expandafter{\tmpstring}%
+	\StrCount{\tmpstring}{&}[\tmpcount]%
+	\typeout{counted: \tmpcount}
+	\xdef\tmpcount{\the\numexpr\tmpcount+1\relax}%
+	\endgroup
+	\expandafter\edef\csname#2\endcsname{\tmpcount}
+}
+
+%\newcommand\wttitlespec{English & Mata}%
+\NewDocumentEnvironment{wordtabular}{ O{4em} O{3em} m }
+{%
+\def\colspec{}%
+\def\titlespec{English & Mata}
+\multido{}{#3}{%
+	\gappto\colspec{||M{#1}|M{#2}}%
+}
+\ifnum#3>1
+	\multido{}{\numexpr#3-1\relax}{%
+		\gappto\titlespec{ & English & Mata}
+	}
+\fi
+\gappto\colspec{||}
+\expandafter\tabular\expandafter{\colspec}
+\specialrule{.2em}{1em}{0em}\hline
+\titlespec \\ \hline}
+{\endtabular}
+
+\NewDocumentEnvironment{stdtable}{ m }
+{%
+\def\colspec{|}%
+\multido{}{#1}{%
+	\gappto\colspec{|c}
+}%
+\gappto\colspec{||}
+\expandafter\tabular\expandafter{\colspec}
+\specialrule{.2em}{1em}{0em}%\hline
+}
+{\endtabular}
+
+\NewDocumentEnvironment{horizontable}{ s O{c} O{|} +v }
+{%
+\numdef\colcount{\getarraylength{#4}}
+\typeout{ampcount is: \colcount}%
+\retokenize\headerrow{#4}%
+\IfBooleanTF{#1}{\def\colspec{#3}}{\def\colspec{}}%
+\multido{}{\colcount}{%
+	\gappto\colspec{#3#2}
+}%
+\IfBooleanTF{#1}{\gappto\colspec{#3#3}}{\gappto\colspec{#3}}%
+\expandafter\tabular\expandafter{\colspec}
+\specialrule{.2em}{1em}{0em}
+\headerrow \\ \hline
+}
+{\endtabular}
+
+\makeatletter
+\newcommand{\headline}[1]{\gdef\@headline{#1}}
+\newcommand{\subheadline}[1]{\gdef\@subheadline{#1}}
+\renewcommand{\maketitle}{
+  \begin{center}
+  \topskip0pt
+  \vspace*{20em}
+    {\fontsize{144pt}{28pt}\selectfont \@title \par}
+    \vspace{2em}
+    {\fontsize{36pt}{16pt}\selectfont \@author \par}
+    \vspace{5em}
+    {\fontsize{36pt}{16pt}\selectfont \textbf \@headline \par}
+    \vspace{2em}
+    {\fontsize{24pt}{16pt}\selectfont \@subheadline \par}
+    \vspace{\fill}
+    {\fontsize{18pt}{14pt}\selectfont \@date \par}
+  \vspace*{3em}
+  \end{center}
+}
+\makeatother
+
+
+\title{Mata}
+\author{J. Mann}
+\headline{A comprehensive guide to the language}
+\subheadline{Written in English}
+\date{April 2026}
+
+\begin{document}
+%\fontsize{20pt}{24pt}\selectfont
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\newpage
+\pagestyle{fancy}
+\lhead{\fontsize{36pt}{12pt}\selectfont Mata}
+\rhead{}
+
+\setcounter{section}{-1}
+\section{Introduction}
+{\fontsize{16pt}{12pt}\selectfont
+$\mathbf{\mataHello}$
+\vspace{0.2em}\\
+Welcome to this comprehensive guide to my language known as \emph{Mata}.\\
+This is my first conlang, made to revolve around mathematical notation, in particular set notation.
+The core concept to know is that almost everything can be described as a set, containing all of the information about said thing. For example, a person can stated to be a set (i.e. $\mathbb{P}$) that contains all of the adjectives describing them. We can then make statements about that set (i.e "$\mathbb{P}\ni\text{stupid}$" \emph{aka} the person is stupid, however "stupid" wouldn't just be in English).
+}
+\newpage
+
+\vspace{10em}
+\section{Lexicon}
+\subsection{Alphabet}
+Using the IPA for the sounds\\
+\begin{tabular}{||c|c||c|c||c|c||c|c||c|c||}
+\specialrule{.2em}{1em}{0em}
+\hline
+Symbol & Sound & Symbol & Sound & Symbol & Sound & Symbol & Sound & Symbol & Sound \\
+\hline
+Aa & æ & Gg & g & Mm & m & Ss & s & Yy & j \\
+\hline
+Bb & b & Hh & h & Nn & n & Tt & t & Zz & z \\
+\hline
+Cc & t\ipafont{S} & Ii & \ipafont{I} & Oo & \ipafont{6} & Uu & \ipafont{U} & &\\
+\hline
+Dd & d & Jj & \ipafont{Z} & Pp & p & Vv & v & & \\
+\hline
+Ee & \ipafont{E} & Kk & k & Qq & \ipafont{T} & Ww & w & & \\
+\hline
+Ff & f & Ll & l & Rr & r & Xx & \ipafont{S} & & \\
+\hline
+\end{tabular}
+\\\\\\
+\fontsize{12pt}{12pt}\selectfont
+For other sounds, the symbol ($_\prime$) can be used to modify certain symbols. For vowels it converts them into their long forms \\
+(Written in \LaTeX\ as "\_\textbackslash prime")\vspace{3em}\\ % what the fuck?
+%
+%
+\fontsize{10pt}{10pt}\selectfont List of alternate sounds:
+\begin{table}[tbh!]
+\begin{tabular}{||c|c||}
+\specialrule{.2em}{1em}{0em}
+\hline
+Symbol & Sound \\
+\hline
+$a_\prime$ & \ipafont{eI} \\
+\hline
+$e_\prime$ & \ipafont{i:} \\
+\hline
+$i_\prime$ & \ipafont{aI} \\
+\hline
+$o_\prime$ & \ipafont{oU} \\
+\hline
+$u_\prime$ & \ipafont{u:} \\
+\hline
+$q_\prime$ & \ipafont{D} \\
+\hline
+\end{tabular}
+\end{table}
+\\\\
+"$q_\prime$" is very uncommon but does exist, primarily for words taken from other languages being written in Mata's alphabet. \\
+For example, "The" would be written as "$q_\prime^h$". The other symbols in this will be touched on shortly.
+\vspace{5em} \\
+%
+Mata very rarely uses the normal symbols for vowels outside of the beginning of words, or pluralisation. Instead,
+Mata uses diacritics to denote when a vowel follows a consonant.\\
+A table of the diacritic marks follows:
+\begin{table}[tbh!]
+%\centering
+\begin{tabularx}{13em}{|| >{\centering\arraybackslash}m{3em} | >{\centering\arraybackslash}m{7em} ||}
+\specialrule{.2em}{1em}{0em}
+\hline
+Symbol & Equivalent vowel \\
+\hline
+$\hat{\circ}$ & a \\
+\hline
+$\ddot{\circ}$ & e \\
+\hline
+$\tilde{\circ}$ & i \\
+\hline
+$\dot{\circ}$ & o \\
+\hline
+$\breve{\circ}$ & u \\
+\hline
+\end{tabularx}
+\end{table}
+\\ \vspace{1em}\\
+Additionally there are two other diacritics other than for vowels. \\
+To asperate a sound, a superscript 'h' can be appended. \\
+To extend a sound, a bar can be added above or below the symbol. 
+If the bar is above another diacritic, it will extend the sound of the diacritic rather than the base consonant. \\
+\newpage
+
+\subsection{Special Characters}
+Mata uses more than a basic alphabet. There are a few special characters with dedicated meanings. All special characters from now on will have their sounds written in the Mata alphabet.
+\begin{table}[tbh!]
+\begin{tabular}{||M{3em}|M{7em}|M{3em}|M{7em}||}
+\specialrule{.2em}{1em}{0em}
+\hline
+Symbol & \LaTeX & Sound & Meaning \\
+\hline
+$\mathcal{E}$ & \tbs mathcal\{E\} & $e_\prime$ & The speaker (I) \\
+\hline
+$\mho$ & \tbs mho & $\hat{w}$ & The listener (you singular) \\
+\hline
+$\emptyset$ & \tbs emptyset & $\hat{n}$ & 0 / nothing \\
+\hline
+$\xi$ & \tbs xi & $a^h$ & Everything \\
+\hline
+$\sigma$ & \tbs sigma & $\ddot{s}_\prime g$ & Level of significance \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Operators}
+Operators are special characters which describe properties or modifications to lexical objects. In sentences, they are particles that fit between objects.
+\setlength{\LTleft}{0cm}
+\newcommand{\optable}{
+\begin{longtable}{||M{5em}|M{11em}|M{5em}|M{12em}||}
+\specialrule{.2em}{0em}{0em}
+\hline
+Symbol & \LaTeX & Sound & Meaning \\ \specialrule{.2em}{0em}{0em} \hline
+\endfirsthead
+\specialrule{.2em}{1em}{0em}
+\hline
+Symbol & \LaTeX & Sound & Meaning \\ \specialrule{.2em}{0em}{0em} \hline
+\endhead
+\hline
+\endfoot
+\hline
+\endlastfoot} 
+
+\newcommand{\breakoptable}{\specialrule{.2em}{0em}{0em}\hline\multicolumn{4}{?c?}{Next page...} \\ \specialrule{.2em}{0em}{0em}\hline\end{longtable}\newpage\optable}
+
+\optable
+$+$ & + & $p\breve{l}s$ & Addition \\ \hline
+$-$ & - & $\tilde{m}\breve{n}s$ & Subtraction \\ \hline
+$\times$ & \tbs times & $\breve{m}l\hat{t}$ & Multiplication \\ \hline
+$\div$ & \tbs div & $\tilde{d}\tilde{v}j$ & Division \\ \hline
+$\ni$ / $\in$ & \tbs ni / \tbs in & $\dot{k}$ or $\dot{k}_\prime$ & Contains / Is contained in \\ \hline
+$\not\ni$ / $\not\in$ & \tbs not\tbs ni / \tbs not\tbs in & $\dot{n}\ni$ or $\dot{n}_\prime\ni$ & Does not contain / is not contained in \\ \hline
+$\circ$ & \tbs circ & $k$ (short) & Used to access an object's child \\ \hline
+$.$ & . & \emph{also} $k$ (short) & Decimal place \\ \hline
+$\neg$ & \tbs neg (often on keyboards) & $\dot{n}$ or $\dot{n}_\prime$ & Not, for saying something is false \\ \hline
+$\dashv$ & \tbs dashv & $\dot{m}$ or $\dot{m}_\prime$ & Not, for inverting \\ \hline
+$\vdash$ & \tbs vdash & $oyl$ & Was true and is still true. \\ \hline
+$\updownarrow$ & \tbs updownarrow & $vr$ & Vertical \\ \hline
+$\leftrightarrow$ & \tbs leftrightarriw & $\dot{h}r$ & Horizontal \\ \hline
+$=$ & = & $a^h$ & is/equals \\ \hline
+$\ne$ & \tbs ne & $na^h$ & is not/not equal \\ \hline
+$\overset{*}{=}$ & \tbs overset\{*\}\{=\} & $o\hat{r}$ & Requires/depends on \\ \hline
+$\supset$ / $\subset$ & \tbs supset / \tbs subset & $\dot{s}$ or $\dot{s}_\prime$ & Is a subset of / contains the set... (plural of $\in$ \\ \hline
+$\not\supset$ / $\not\subset$ & \tbs not\tbs supset / \tbs not\tbs subset & $\dot{n}\supset$ or $\dot{n}_\prime\supset$ & negative of subset/superset \\ \hline
+
+\breakoptable
+
+$?$ & ? & $br$ & Convert an operator to a question \\ \hline
+$\{$ / $\}$ & \tbs\{ / \tbs\} & $\hat{l}$ & Open/Close a set. "\}" does not have to be pronounced at the end of a sentence. \\ \hline
+$|$ & | & $\breve{X}$ & And, in a set \\ \hline
+$\cap$ & \tbs cap & $\hat{X}_\prime y$ & And, between sets (intersection) \\ \hline
+$\cup$ & \tbs cup & $\breve{C}y$ & Or, between sets (union) \\ \hline
+$\therefore$ & \tbs therefore & $\hat{Q}\breve{r}_\prime$ & Therefore \\ \hline
+$\because$ & \tbs because & $\hat{B}\breve{r}_\prime$ & Because \\ \hline
+$\diamond$ & \tbs diamond & $\hat{P}$ & Is possible (can) \\ \hline
+$\boxplus$ & \tbs boxplus & $\bar{\hat{S}}p\underline{l}$ & However/But (Despite this) \\ \hline
+$\land$ & \tbs land & $\hat{X}$ & And, in logic \\ \hline
+$\vee$ & \tbs vee & $\breve{C}$ & Or, in logic \\ \hline
+$\colon$ & \tbs colon & No sound & Used optionally to separate adjacent words as Mata does not use spaces \\ \hline
+\endlastfoot
+\end{longtable}
+
+\vspace{5em}
+\subsection{Numbers}
+Mata, like other western languages, uses base 10  and the same numerals as English (Hindu-Arabic numerals if i remember correctly). The names for numbers are as follows:\\
+\begin{tabular}{||c|c||c|c||c|c||}
+\specialrule{.2em}{.5em}{0em}
+\hline
+Numeral & Word & Numeral & Word & Numeral & Word \\ \hline
+0 & $na$ & 10 & $\ddot{k}_\prime n$ & 100 & $\ddot{k}_\prime t$ \\ \hline
+1 & $ak$ & 11 & $\ddot{k}_\prime nak$ & 200 & $\ddot{l}_\prime t$ \\ \hline
+2 & $el$ & 20 & $\ddot{l}_\prime n$ & 300 & $\ddot{d}_\prime t$ \\ \hline
+3 & $d\ddot{r}$ & 30 & $\ddot{d}_\prime n$ & 1000 & $\ddot{k}_\prime\hat{y}$ \\ \hline
+4 & $f\hat{w}$ & 40 & $\ddot{f}_\prime n$ & 2000 & $\ddot{l}_\prime\hat{y}$ \\ \hline
+5 & $\breve{y}n$ & 50 & $\ddot{y}_\prime n$ & 3000 & $\ddot{d}_\prime\hat{y}$ \\ \hline
+6 & $\hat{\jmath}n$ & 60 & $\ddot{\jmath}_\prime n$ & & \\ \hline
+7 & $\hat{p}r$ & 70 & $\ddot{p}_\prime n$ & & \\ \hline
+8 & $uv$ & 80 & $\ddot{u}_\prime n$ & & \\ \hline
+9 & $\ddot{y}c$ & 90 & $\ddot{c}_\prime n$ & & \\ \hline
+\end{tabular}\\\vspace{0.25em}
+If you wish to say a number with order above 3, you can use scientific notation with the $\hat{p}$ particle (i.e $2.5\ \text{million}\ =\ 2.5\times10^6\ =\ elk\breve{y}n\hat{p}\hat{\jmath}n$). \\
+Numbers can be used for emphasis like an adjective (i.e. "very good" would be like saying "10 good"/"$\ddot{k}_\prime n:\hat{q}\breve{n}l$").\\
+\\
+\\
+The ordinal variants are as follows: \vspace{0.25em}\\
+%\begin{stdtable}{6}%\begin{tabular}{||c|c|c|c|c|c||}
+%\hline
+%Number & 1 & 2 & 3 & 4 & 5 \\ \hline
+%Word & $a\breve{k}_\prime$ & $\ddot{l}$ & $\dot{d}r$ & $\breve{f}_\prime$ & $\breve{k}n$ \\ \hline
+%\end{stdtable}
+\begin{horizontable}*
+{Number & 1 & 2 & 3 & 4 & 5}
+Word & $a\breve{k}_\prime$ & $\ddot{l}$ & $\dot{d}r$ & $\breve{f}_\prime$ & $\breve{k}n$ \\ \hline
+\end{horizontable}
+
+\newpage
+\section{Words}
+Time for an overview of some of the words in \emph{Mata}. These lists are not extensive and at somepoint I will create a dictionary for them.
+\subsection{Verbs}
+\emph{Verbs} is not the best word to describe these words, they more represent the concept of the action rather than the action itself. This will be more relevant later.
+Here is a list of some of the more common \emph{Verbs} (or some of the first few I created) with rough English translations:\\
+%
+\begin{wordtabular}{5}
+To do & $\dot{d}$ & To say/speak & $\hat{S}g$ & To play & $\dot{s}nd$ & To hate & $\hat{d}\ddot{r}$ & To fish & $\hat{s}\hat{m}$ \\ \hline
+To read & $k\tilde{o}c$ & To go & $\breve{m}ln$ & To consume & $v\dot{l}_\prime s$ & To get & $\dot{r}\hat{r}$ & To know & $oylr$ \\ \hline
+To want & $\ddot{y}tx$ & To see & $b\hat{y}n$ & To sex & $\ddot{l}\hat{f}$ & To assume/ think/ believe & $\hat{d}rs$ & To milk & $\tilde{m}lj$ \\ \hline
+To be going to/intend to (will) & $\breve{q}\hat{v}t$ & To assert (suggest is true) & $\breve{k}l\hat{t}$ & To die/kill & $ol\hat{k}$ & & & & \\ \hline
+\end{wordtabular}\\\\
+\\
+Mata supports compound \emph{verbs} as well:\\
+\begin{wordtabular}[4em][4em]{5}
+To sleep & $n\dot{y}c\breve{m}ln$ & To drive & $\hat{m}\tilde{x}n\breve{m}ln$ & To love & $\dashv\hat{d}\ddot{r}$ & To hunger/ thirst & $v\dot{l}_\prime s\ddot{y}tx$  & & \\\hline
+\end{wordtabular}\\\\
+In order to describe the past or future tense of a \emph{verb}, you can either
+\begin{itemize}
+\item Access the past or future child of the \emph{verb} (i.e. $\mathcal{E}\circ\dot{d}\circ\tilde{u}p$ is the set of things that I, the speaker, have done)
+\item Apply the past or future as a function, less uses (i.e. $\tilde{u}p(\hat{s}\hat{m}$) is the state of having fished, The sentence "he is going to have fished" would be $\tilde{G}\circ\dot{d}\circ k\breve{l}\ni\tilde{u}p(\hat{s}\hat{m})$)
+\end{itemize}
+Here are a few example sentences:\\
+\NewDocumentCommand{\sentex}{m m O{}}{\emph{#1} & #2 & \ifx#3\else(#3)\fi\\} %sentence example
+\begin{tabular}{l l l}
+\sentex{James says "Hello"}{$\myname\circ\hat{S}g\ni"\ddot{H}\dot{l}_\prime"$}[James'k sag koh Hello]
+\sentex{James is saying "Hello"}{$\myname\circ\dot{d}\ni\hat{S}g("\ddot{H}\dot{l}_\prime")$}[James'k doh koh sag Hello]
+\sentex{James is doing nothing}{$\myname\circ\dot{d}=\emptyset$}[James'k doh ah na]
+\sentex{I hate you}{$\mathcal{E}\circ\hat{d}\ddot{r}\ni\mho$}[Ee'k dareh koh wa]
+\sentex{I hate you a lot}{$\mathcal{E}\circ\hat{d}\ddot{r}:\ddot{k}_\prime n\ni\mho$}[Ee'k dareh keen koh wa]
+\sentex{I really really love you}{$\mathcal{E}\circ\dashv\hat{d}\ddot{r}:\ddot{k}_\prime\hat{y}\ni\mho$}[Ee'k modareh keeya koh wa]
+\sentex{I saw you}{$\mathcal{E}\circ b\hat{y}n\circ\tilde{u}p\ni\mho$}[Ee'k byan k'u-ip koh wa]
+\sentex{I saw you reading}{$\mathcal{E}\circ b\hat{y}n\circ\tilde{u}p\ni\mho\circ\dot{d}(k\tilde{o}c)$}[Ee'k byan k'u-ip koh wa'k doh(ko-ich)]
+\sentex{James can't do everything}{$\myname\circ\diamond\dot{d}\ne\xi$}[James k'padoh na ah]
+\sentex{I want to go to sleep}{$\mathcal{E}\circ\ddot{y}tx\ni n\dot{y}c\breve{m}ln$}[Ee'k yetsh koh nyoch-muln]
+%\sentex{I need 
+\end{tabular}
+
+\newpage
+\subsection{Nouns and Pronouns}
+\subsubsection{Pronouns}
+\emph{Mata} supports most of the same pronouns as \emph{English} but remember that objects like pronouns are sets which can be combined together to describe different groups.\\
+\begin{wordtabular}{5}
+I & $\mathcal{E}$ & You & $\mho$ & they/it & $\tilde{g}$ & You(p)$^\dagger$ & $p\hat{y}$ & they(p)$^\ddagger$ & $g\hat{y}$ \\\hline
+This/ These & $\mathcal{E}\hat{c}$ & That/ Those & $\mho\hat{c}$ & & & & & & \\\hline
+\end{wordtabular}\\
+\small{$^\dagger$Any group of people including the listener and not including the speaker}\\
+\small{$^\ddagger$Any group of people including neither the listener nor the speaker}
+\subsubsection{Nouns}
+\begin{wordtabular}{5}
+Past & $\tilde{u}p$ & Future & $k\breve{l}$ & Name & $\hat{n}_\prime m$ & Night & $n\dot{y}c$ & Apple & $a\breve{p}l$ \\\hline
+\end{wordtabular}
+\end{document}
