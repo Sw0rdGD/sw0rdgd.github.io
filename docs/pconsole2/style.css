@@ -1,0 +1,28 @@
+.intro {
+    margin-top: 0px;
+    margin-bottom: 40px;
+}
+
+p {
+    text-align: justify;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+    background: none;
+    padding: 2px 10px;
+    border: hidden;
+    border-radius: 0;
+    white-space: pre-wrap;
+    line-height: 1em;
+}
+
+codeHeader {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    line-height: 1.5em;
+}
