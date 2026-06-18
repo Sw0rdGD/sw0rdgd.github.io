@@ -51,7 +51,7 @@
 
 \newcommand{\tbs}{\textbackslash}
 
-\newcommand{\mataHello}{{\tilde{E}\mkern-10mu\raise1pt\hbox{$/\mkern-8mu/$}}\mkern2mu\hat{y}}
+\newcommand{\mataHello}{\tilde{\bar{E}}\hat{y}}%{{\tilde{E}\mkern-10mu\raise1pt\hbox{$/\mkern-8mu/$}}\mkern2mu\hat{y}}
 
 \NewDocumentCommand{\getcolcount}{ m O{ampcount}}{%
 	\typeout{received: #1}
@@ -97,22 +97,6 @@
 }
 {\endtabular}
 
-\NewDocumentEnvironment{horizontable}{ s O{c} O{|} +v }
-{%
-\numdef\colcount{\getarraylength{#4}}
-\typeout{ampcount is: \colcount}%
-\retokenize\headerrow{#4}%
-\IfBooleanTF{#1}{\def\colspec{#3}}{\def\colspec{}}%
-\multido{}{\colcount}{%
-	\gappto\colspec{#3#2}
-}%
-\IfBooleanTF{#1}{\gappto\colspec{#3#3}}{\gappto\colspec{#3}}%
-\expandafter\tabular\expandafter{\colspec}
-\specialrule{.2em}{1em}{0em}
-\headerrow \\ \hline
-}
-{\endtabular}
-
 \makeatletter
 \newcommand{\headline}[1]{\gdef\@headline{#1}}
 \newcommand{\subheadline}[1]{\gdef\@subheadline{#1}}
@@ -153,8 +137,9 @@
 
 \setcounter{section}{-1}
 \section{Introduction}
+\vspace{-0.5em}
 {\fontsize{16pt}{12pt}\selectfont
-$\mathbf{\mataHello}$
+$\mathbf{\mataHello}${\fontsize{8pt}{12pt}\selectfont(Ehh-ih-ya)} $\mathbf{|\ Hello}$
 \vspace{0.2em}\\
 Welcome to this comprehensive guide to my language known as \emph{Mata}.\\
 This is my first conlang, made to revolve around mathematical notation, in particular set notation.
@@ -191,6 +176,7 @@ For other sounds, the symbol ($_\prime$) can be used to modify certain symbols. 
 %
 %
 \fontsize{10pt}{10pt}\selectfont List of alternate sounds:
+\vspace{-1.5em}
 \begin{table}[tbh!]
 \begin{tabular}{||c|c||}
 \specialrule{.2em}{1em}{0em}
@@ -211,38 +197,55 @@ $q_\prime$ & \ipafont{D} \\
 \hline
 \end{tabular}
 \end{table}
-\\\\
+\vspace{-0.5em}\\
 "$q_\prime$" is very uncommon but does exist, primarily for words taken from other languages being written in Mata's alphabet. \\
 For example, "The" would be written as "$q_\prime^h$". The other symbols in this will be touched on shortly.
 \vspace{5em} \\
 %
 Mata very rarely uses the normal symbols for vowels outside of the beginning of words, or pluralisation. Instead,
-Mata uses diacritics to denote when a vowel follows a consonant.\\
-A table of the diacritic marks follows:
+Mata uses diacritics to denote when a vowel follows a consonant.\\\\
+\raggedright A table of the diacritic marks follows:
+\vspace{-1.5em}
 \begin{table}[tbh!]
 %\centering
-\begin{tabularx}{13em}{|| >{\centering\arraybackslash}m{3em} | >{\centering\arraybackslash}m{7em} ||}
+\begin{tabularx}{21.25em}{|| >{\centering\arraybackslash}m{3em} | >{\centering\arraybackslash}m{7em} | >{\centering\arraybackslash}m{7em} ||}
 \specialrule{.2em}{1em}{0em}
 \hline
-Symbol & Equivalent vowel \\
+Symbol & Equivalent vowel & \LaTeX \\
 \hline
-$\hat{\circ}$ & a \\
+$\hat{\circ}$ & a  & \tbs hat\{...\}\\
 \hline
-$\ddot{\circ}$ & e \\
+$\ddot{\circ}$ & e & \tbs ddot\{...\}\\
 \hline
-$\tilde{\circ}$ & i \\
+$\tilde{\circ}$ & i & \tbs tilde\{...\}\\
 \hline
-$\dot{\circ}$ & o \\
+$\dot{\circ}$ & o & \tbs dot\{...\}\\
 \hline
-$\breve{\circ}$ & u \\
+$\breve{\circ}$ & u & \tbs breve\{...\}\\
 \hline
 \end{tabularx}
 \end{table}
-\\ \vspace{1em}\\
+\\ \vspace{1em}
 Additionally there are two other diacritics other than for vowels. \\
-To asperate a sound, a superscript 'h' can be appended. \\
-To extend a sound, a bar can be added above or below the symbol. 
-If the bar is above another diacritic, it will extend the sound of the diacritic rather than the base consonant. \\
+%To asperate a sound, a superscript 'h' can be appended. \\
+%To extend a sound, a bar can be added above or below the symbol. 
+%If the bar is above another diacritic, it will extend the sound of the diacritic rather than the base consonant. \\
+\begin{tabular}{||c|c||}
+\specialrule{.2em}{1em}{0em}
+Symbol & Sound \\\hline
+$\circ^h$ & Aspirated\\\hline
+$\bar{\circ}$ / $\circ$ & Long Sound\\\hline
+\end{tabular}
+%\typeout{Extra Row Height:}
+%\showthe\extrarowheight
+\setlength\extrarowheight{5pt}
+\begin{tabular}{||c|c||}
+\specialrule{.2em}{1em}{0em}
+Symbol & Sound \\\hline
+$\hat{\bar{S}}$ & Long S, short a \\\hline
+$\bar{\hat{S}}$ & Short S, long a \\\hline
+\end{tabular}
+\setlength\extrarowheight{0pt}
 \newpage
 
 \subsection{Special Characters}
@@ -308,7 +311,7 @@ $\not\supset$ / $\not\subset$ & \tbs not\tbs supset / \tbs not\tbs subset & $\do
 
 \breakoptable
 
-$?$ & ? & $br$ & Convert an operator to a question \\ \hline
+$?$ & ? & $v^h$ & Convert an operator to a question \\ \hline
 $\{$ / $\}$ & \tbs\{ / \tbs\} & $\hat{l}$ & Open/Close a set. "\}" does not have to be pronounced at the end of a sentence. \\ \hline
 $|$ & | & $\breve{X}$ & And, in a set \\ \hline
 $\cap$ & \tbs cap & $\hat{X}_\prime y$ & And, between sets (intersection) \\ \hline
@@ -340,21 +343,15 @@ Numeral & Word & Numeral & Word & Numeral & Word \\ \hline
 7 & $\hat{p}r$ & 70 & $\ddot{p}_\prime n$ & & \\ \hline
 8 & $uv$ & 80 & $\ddot{u}_\prime n$ & & \\ \hline
 9 & $\ddot{y}c$ & 90 & $\ddot{c}_\prime n$ & & \\ \hline
-\end{tabular}\\\vspace{0.25em}
+\end{tabular}\vspace{0.25em}\\
 If you wish to say a number with order above 3, you can use scientific notation with the $\hat{p}$ particle (i.e $2.5\ \text{million}\ =\ 2.5\times10^6\ =\ elk\breve{y}n\hat{p}\hat{\jmath}n$). \\
 Numbers can be used for emphasis like an adjective (i.e. "very good" would be like saying "10 good"/"$\ddot{k}_\prime n:\hat{q}\breve{n}l$").\\
-\\
-\\
-The ordinal variants are as follows: \vspace{0.25em}\\
-%\begin{stdtable}{6}%\begin{tabular}{||c|c|c|c|c|c||}
-%\hline
-%Number & 1 & 2 & 3 & 4 & 5 \\ \hline
-%Word & $a\breve{k}_\prime$ & $\ddot{l}$ & $\dot{d}r$ & $\breve{f}_\prime$ & $\breve{k}n$ \\ \hline
-%\end{stdtable}
-\begin{horizontable}*
-{Number & 1 & 2 & 3 & 4 & 5}
-Word & $a\breve{k}_\prime$ & $\ddot{l}$ & $\dot{d}r$ & $\breve{f}_\prime$ & $\breve{k}n$ \\ \hline
-\end{horizontable}
+The ordinal variants are as follows:\\
+\begin{stdtable}{15}%\begin{tabular}{||c|c|c|c|c|c|c|c|c|c||}
+\hline
+Number & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 20 & 30 & 100 \\ \hline
+Word & $a\breve{k}_\prime$ & $\ddot{l}\bar{a}$ & $\dot{d}r$ & $\breve{f}_\prime$ & $\breve{y}_\prime t$ & $\hat{\jmath}w$ & $\breve{p}\ddot{r}_\prime$ & $\hat{u}l$ & $\ddot{t}\hat{c}$ & $a\breve{k}_\prime n$ & $a\breve{k}_\prime nak$ & $a\breve{l}_\prime n$ & $a\breve{d}_\prime n$ & $a\breve{k}_\prime t$ \\ \hline
+\end{stdtable}
 
 \newpage
 \section{Words}
@@ -368,12 +365,11 @@ To do & $\dot{d}$ & To say/speak & $\hat{S}g$ & To play & $\dot{s}nd$ & To hate 
 To read & $k\tilde{o}c$ & To go & $\breve{m}ln$ & To consume & $v\dot{l}_\prime s$ & To get & $\dot{r}\hat{r}$ & To know & $oylr$ \\ \hline
 To want & $\ddot{y}tx$ & To see & $b\hat{y}n$ & To sex & $\ddot{l}\hat{f}$ & To assume/ think/ believe & $\hat{d}rs$ & To milk & $\tilde{m}lj$ \\ \hline
 To be going to/intend to (will) & $\breve{q}\hat{v}t$ & To assert (suggest is true) & $\breve{k}l\hat{t}$ & To die/kill & $ol\hat{k}$ & & & & \\ \hline
-\end{wordtabular}\\\\
-\\
+\end{wordtabular}\\
 Mata supports compound \emph{verbs} as well:\\
 \begin{wordtabular}[4em][4em]{5}
 To sleep & $n\dot{y}c\breve{m}ln$ & To drive & $\hat{m}\tilde{x}n\breve{m}ln$ & To love & $\dashv\hat{d}\ddot{r}$ & To hunger/ thirst & $v\dot{l}_\prime s\ddot{y}tx$  & & \\\hline
-\end{wordtabular}\\\\
+\end{wordtabular}\\
 In order to describe the past or future tense of a \emph{verb}, you can either
 \begin{itemize}
 \item Access the past or future child of the \emph{verb} (i.e. $\mathcal{E}\circ\dot{d}\circ\tilde{u}p$ is the set of things that I, the speaker, have done)
@@ -398,15 +394,50 @@ Here are a few example sentences:\\
 \newpage
 \subsection{Nouns and Pronouns}
 \subsubsection{Pronouns}
-\emph{Mata} supports most of the same pronouns as \emph{English} but remember that objects like pronouns are sets which can be combined together to describe different groups.\\
+\emph{Mata} supports most of the same pronouns as \emph{English} but remember that objects like pronouns are sets which can be combined together to describe different groups using the "$\cap$" and "$\cup$" symbols.\\
 \begin{wordtabular}{5}
-I & $\mathcal{E}$ & You & $\mho$ & they/it & $\tilde{g}$ & You(p)$^\dagger$ & $p\hat{y}$ & they(p)$^\ddagger$ & $g\hat{y}$ \\\hline
+The Speaker, I & $\mathcal{E}$ & The Listener, You[sing] & $\mho$ & They/It* & $\tilde{g}$ & You[plur]$^\dagger$ & $p\hat{y}$ & They [plur]$^\ddagger$ & $g\hat{y}$ \\\hline
 This/ These & $\mathcal{E}\hat{c}$ & That/ Those & $\mho\hat{c}$ & & & & & & \\\hline
-\end{wordtabular}\\
+\end{wordtabular}\vspace{0.25em}\\
+\small{*Any physical object or person. Cannot be used for anything abstract, except for personification}\\
 \small{$^\dagger$Any group of people including the listener and not including the speaker}\\
 \small{$^\ddagger$Any group of people including neither the listener nor the speaker}
 \subsubsection{Nouns}
+\vspace{-1.5em}
 \begin{wordtabular}{5}
-Past & $\tilde{u}p$ & Future & $k\breve{l}$ & Name & $\hat{n}_\prime m$ & Night & $n\dot{y}c$ & Apple & $a\breve{p}l$ \\\hline
+Past & $\tilde{u}p$ & Future & $k\breve{l}$ & Name & $\tilde{n}ym$ & Night & $n\dot{y}c$ & Apple & $a\breve{p}l$ \\\hline
+Car & $\hat{m}\tilde{x}n$ & Head & $\hat{l}gk$ & Mum & $\hat{m}\breve{m}_\prime$ & Dad & $\hat{p}\breve{p}_\prime$ & Child & $\tilde{k}\hat{l}n$ \\\hline
 \end{wordtabular}
+
+\newpage
+\subsection{Adjectives}
+Adjectives are primarily made of root words and modifier particles. For example, the word for short is equivalent to 'not vertical length'. Compound words can also be made by combining other words. For example, enjoyment is equivalent to 'doing-happiness'.\\
+
+\centering\textbf{Roots:}\\
+\begin{wordtabular}{5}
+Length & $\hat{k}\hat{r}$ & Happiness & $\hat{t}_\prime\dot{r}l$ & Good & $\hat{T}\breve{n}l$ & Bad & $\breve{H}_\prime\breve{n}l$ & Empty & $\hat{v}n$ \\\hline
+Area & $E\hat{r}$ & Volume & $\dot{t}\hat{r}$ & Male & $\hat{k}l$ & Female & $\hat{v}l$ & & \\\hline
+\end{wordtabular}\vspace{1.25em}\\
+
+Even though the words for length, area, and volume describe the concepts, describing an object as having the concept as a quality suggests that it has a large amount. So if I want to say that an object is long I can just say that it has length, and if i want to say that it's short I can say it has not-length. To convert these concepts into physical objects, the relevant affix would be needed. Therefore, \emph{An Area} would be $E\hat{r}\ddot{y}n$.\\\vspace{2em}
+
+\textbf{Modifiers:}\\
+These are all operators from before, however I will still reiterate the relevant ones here.\\
+\begin{wordtabular}{5}
+Not & $\neg$ & Vertical & $\updownarrow$ & Horizontal & $\leftrightarrow$ & & & &\\\hline
+\end{wordtabular}
+
+\newpage
+\subsection{Interjections}
+\subsubsection{\raggedright Frequently Used}
+\vspace{-1.5em}
+\begin{wordtabular}{5}
+Yes & $\hat{T}$ & No & $\breve{h}_\prime$ & Thanks & $\tilde{s}k\ddot{r}l$ & Hello & $\mataHello$ & Excuse me & $i\tilde{v}\hat{n}$ \\\hline
+\end{wordtabular}
+\subsubsection{Expletives}
+\vspace{-1.5em}
+\begin{wordtabular}{5}
+F*ck/ Holy Sh*t & $\hat{y}v\hat{l}\bar{r}$ & B*tch/ Idiot & $k\hat{r}n\hat{t}$ & & & & & & \\\hline
+\end{wordtabular}
+
 \end{document}
